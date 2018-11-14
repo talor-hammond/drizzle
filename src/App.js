@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
+// Components:
+import Canvas from './components/Canvas/Canvas'
+
 class App extends Component {
   render() {
     return (
-      <div>
-        <h1>Hi</h1>
-      </div>
+      <Canvas />
     );
   }
 }

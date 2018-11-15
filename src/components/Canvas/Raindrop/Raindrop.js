@@ -1,8 +1,3 @@
-import {
-    getRandomXValue,
-    getRandomInt
-} from '../../../lib/utils'
-
 class Raindrop {
     constructor(x, y, rad, dy, ctx) {
         this.state = {
@@ -11,7 +6,9 @@ class Raindrop {
             rad,
             dy, // Vertical velocity.
             ctx
-        }      
+        }
+        
+        this.animate = this.animate.bind(this)
     }
 
     draw() {
@@ -23,7 +20,19 @@ class Raindrop {
     }
 
     update() {
+        this.state.y += this.state.dy // ...y state is updated before Raindrop.draw()
 
+        this.draw()
+    }
+
+    animate() {
+        const { ctx } = this.state
+
+        requestAnimationFrame(this.animate)
+
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+
+        this.update()
     }
 }
 

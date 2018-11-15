@@ -30,52 +30,38 @@ class Canvas extends Component {
         const canvas = document.getElementById('canvas')
         const ctx = canvas.getContext('2d')
 
-        this.setState({ ctx }, () => {
-            // Drawing & animation on our canvas:
-            // this.createRecs()
-
+        this.setState({ ctx }, () => { // Once our ctx object has been set...
+            // Drawing & animation on our canvas-context:
             for (let i = 0; i < 30; i++) {
-                this.generateRaindrop()
+                // Raindrop setup:
+                const x = getRandomXValue()
+                const y = 0
+                const rad = getRandomInt(5, 15)
+                const dy = getRandomInt(0.5, 1) // Vertical velocity; make this random.
+
+                const raindrop = new Raindrop(x, y, rad, dy, ctx)
+
+                raindrop.animate()
             }
         })
-    }
-
-    generateRaindrop = () => {
-        const { ctx } = this.state
-        
-        // Raindrop setup:
-        const x = getRandomXValue()
-        let y = 0
-        const rad = getRandomInt(5, 15)
-        const dy = 1 // Vertical velocity; make this random.
-
-        const raindrop = new Raindrop(x, y, rad, dy, ctx)
-        
-        raindrop.draw()
     }
 
     _onMouseMove(e) {
         this.setState({ mouseX: e.clientX, mouseY: e.clientY })
     }
 
-    _onMouseDown() {
-        // Create an entity:
-
-    }
-
     render() {
         const { canvas } = this.props.classes
 
         return (
-            <canvas 
-                id="canvas" 
+            <canvas
+                id="canvas"
                 className={canvas}
                 width={window.innerWidth}
                 height={window.innerHeight}
                 onMouseMove={this._onMouseMove.bind(this)}
-                onMouseDown={this._onMouseDown.bind(this)}
             >
-                
+
             </canvas>
         )
     }

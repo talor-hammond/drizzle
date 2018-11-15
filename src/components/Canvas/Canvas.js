@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
-import injectSheet from 'react-jss'
 
-const styles = {
-    canvas: {
-        backgroundColor: '#000',
-        height: '100vh',
-        width: '100vw'
-    }
-}
+// Styles:
+import injectSheet from 'react-jss'
+import styles from './CanvasStyles'
 
 class Canvas extends Component {
     state = {
         x: 0,
         y: 0
+    }
+
+    componentDidMount() {
+        this.createStars()
+    }
+    
+    createStars() {
+        const canvas = document.getElementById('canvas')
+        const ctx = canvas.getContext('2d')
     }
 
     _onMouseMove(e) {
@@ -25,15 +29,20 @@ class Canvas extends Component {
         })
     }
 
+    _onMouseDown() {
+        // Create an entity:
+
+    }
+
     render() {
         const { canvas } = this.props.classes
 
         return (
             <canvas 
-            id="canvas" 
-            className={canvas}
-            onMouseMove={this._onMouseMove.bind(this)}
-            onMouseDown={this._onMouseDown.bind(this)}
+                id="canvas" 
+                className={canvas}
+                onMouseMove={this._onMouseMove.bind(this)}
+                onMouseDown={this._onMouseDown.bind(this)}
             >
                 
             </canvas>

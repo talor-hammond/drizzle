@@ -6,27 +6,29 @@ import styles from './CanvasStyles'
 
 class Canvas extends Component {
     state = {
+        canvas: null,
+        context: null,
         x: 0,
         y: 0
     }
 
     componentDidMount() {
-        this.createStars()
+        // Initialising canvas & context:
+        const canvas = document.getElementById('canvas')
+        const context = canvas.getContext('2d')
+
+        this.setState({ canvas, context })
     }
     
     createStars() {
-        const canvas = document.getElementById('canvas')
-        const ctx = canvas.getContext('2d')
+
     }
 
     _onMouseMove(e) {
         const x = e.clientX
         const y = e.clientY
         
-        this.setState({
-            x,
-            y
-        })
+        this.setState({ x, y })
     }
 
     _onMouseDown() {

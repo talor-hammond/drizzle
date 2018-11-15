@@ -10,15 +10,31 @@ const styles = {
 }
 
 class Canvas extends Component {
-    componentDidMount() {
+    state = {
+        x: 0,
+        y: 0
+    }
 
+    _onMouseMove(e) {
+        const x = e.clientX
+        const y = e.clientY
+        
+        this.setState({
+            x,
+            y
+        })
     }
 
     render() {
         const { canvas } = this.props.classes
 
         return (
-            <canvas id="canvas" className={canvas}>
+            <canvas 
+            id="canvas" 
+            className={canvas}
+            onMouseMove={this._onMouseMove.bind(this)}
+            onMouseDown={this._onMouseDown.bind(this)}
+            >
                 
             </canvas>
         )

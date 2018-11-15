@@ -4,10 +4,14 @@ import React, { Component } from 'react'
 import injectSheet from 'react-jss'
 import styles from './CanvasStyles'
 
+// Components / Objects:
+import Raindrop from './Raindrop/Raindrop'
+
 // Utils:
 import {
     getRandomXValue,
     // getRandomYValue
+    getRandomInt
 } from '../../lib/utils'
 
 class Canvas extends Component {
@@ -39,23 +43,15 @@ class Canvas extends Component {
     generateRaindrop = () => {
         const { ctx } = this.state
         
-        let x = getRandomXValue()
+        // Raindrop setup:
+        const x = getRandomXValue()
         let y = 0
-        const rad = Math.random() * (15 - 5) + 5
+        const rad = getRandomInt(5, 15)
+        const dy = 1 // Vertical velocity; make this random.
+
+        const raindrop = new Raindrop(x, y, rad, dy, ctx)
         
-        function animate() {
-            requestAnimationFrame(animate)
-
-            ctx.clearRect(0, 0, window.innerWidth, window.innerWidth)
-            
-            ctx.beginPath()
-            ctx.arc(x, y, rad, 0, Math.PI * 2)
-            ctx.stroke()
-            
-            y += 1
-        }
-
-        animate()
+        raindrop.draw()
     }
 
     _onMouseMove(e) {

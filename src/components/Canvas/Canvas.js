@@ -4,11 +4,21 @@ import React, { Component } from 'react'
 import injectSheet from 'react-jss'
 import styles from './CanvasStyles'
 
+// Utils:
+import {
+    getRandomXValue,
+    // getRandomYValue
+} from '../../lib/utils'
+
 class Canvas extends Component {
-    state = {
-        ctx: null,
-        mouseX: 0,
-        mouseY: 0
+    constructor() {
+        super()
+
+        this.state = {
+            ctx: null,
+            mouseX: 0,
+            mouseY: 0
+        }
     }
 
     componentDidMount() {
@@ -18,16 +28,34 @@ class Canvas extends Component {
 
         this.setState({ ctx }, () => {
             // Drawing & animation on our canvas:
-            this.createStars()
+            // this.createRecs()
+
+            for (let i = 0; i < 30; i++) {
+                this.generateRaindrop()
+            }
         })
     }
-    
-    createStars() {
-        const { ctx } = this.state
 
-        ctx.fillRect(0, 0, 100, 100)
-        ctx.fillRect(100, 100, 100, 100)
-        ctx.fillRect(200, 200, 100, 100)
+    generateRaindrop = () => {
+        const { ctx } = this.state
+        
+        let x = getRandomXValue()
+        let y = 0
+        const rad = Math.random() * (15 - 5) + 5
+        
+        function animate() {
+            requestAnimationFrame(animate)
+
+            ctx.clearRect(0, 0, window.innerWidth, window.innerWidth)
+            
+            ctx.beginPath()
+            ctx.arc(x, y, rad, 0, Math.PI * 2)
+            ctx.stroke()
+            
+            y += 1
+        }
+
+        animate()
     }
 
     _onMouseMove(e) {

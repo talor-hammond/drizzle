@@ -37,11 +37,6 @@ class Canvas extends Component {
         const canvas = document.getElementById('canvas')
         const ctx = canvas.getContext('2d')
 
-        // Presetting our ctx obj before it is set in state.
-        ctx.strokeStyle = 'rgba(174,194,224,0.5)'
-        ctx.lineWidth = 1
-        ctx.lineCap = 'round'
-
         this.setState({ ctx }, () => {
             const maxRaindrops = 100
             let raindrops = []

@@ -1,3 +1,7 @@
+import {
+    getRandomInt
+} from '../../../lib/utils'
+
 class Raindrop {
     constructor(x, y, l, dy, dx, ctx) {
         this.state = {
@@ -10,8 +14,12 @@ class Raindrop {
         }
     }
         
-    draw() {
+    draw() { // ...the shape of our Raindrop object.
         const { x, y, l, ctx } = this.state
+
+        ctx.strokeStyle = `rgba(174, 194, 224, ${getRandomInt(0.25, 0.85)})`
+        ctx.lineWidth = 1
+        ctx.lineCap = 'round'
 
         ctx.beginPath()
         ctx.moveTo(x, y) // Starting x and y for our line.

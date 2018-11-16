@@ -21,8 +21,11 @@ class Canvas extends Component {
         this.state = {
             ctx: null,
             mouseX: 0,
-            mouseY: 0
+            mouseY: 0,
+            raindrops: []
         }
+
+        this.handleMouseMove = this.handleMouseMove.bind(this)
     }
 
     componentDidMount() {
@@ -30,24 +33,46 @@ class Canvas extends Component {
         const canvas = document.getElementById('canvas')
         const ctx = canvas.getContext('2d')
 
-        this.setState({ ctx }, () => { // Once our ctx object has been set...
-            // Drawing & animation on our canvas-context:
-            for (let i = 0; i < 30; i++) {
+        this.setState({ ctx }, () => {
+            let raindrops = []
+
+            for (let i = 0; i < 15; i++) {
                 // Raindrop setup:
                 const x = getRandomXValue()
                 const y = 0
                 const rad = getRandomInt(5, 15)
-                const dy = getRandomInt(0.5, 1) // Vertical velocity; make this random.
+                const dy = getRandomInt(20, 25) // Vertical velocity; make this random.
+                const dx = getRandomInt(0.5, 1)
 
-                const raindrop = new Raindrop(x, y, rad, dy, ctx)
+                const raindrop = new Raindrop(x, y, rad, dy, dx, ctx)
 
-                raindrop.animate()
+                raindrops.push(raindrop)
             }
+
+            this.setState({ raindrops }, () => { // creating an array of 15 unique raindrop objects.
+                this.animateRaindrops()
+            })
         })
     }
 
-    _onMouseMove(e) {
+    handleMouseMove(e) {
         this.setState({ mouseX: e.clientX, mouseY: e.clientY })
+    }
+
+    animateRaindrops() {
+        const { ctx, raindrops } = this.state
+
+        function animate() {
+            requestAnimationFrame(animate)
+            
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+
+            raindrops.forEach(raindrop => {
+                raindrop.update()
+            })
+        }
+
+        animate()
     }
 
     render() {
@@ -59,7 +84,7 @@ class Canvas extends Component {
                 className={canvas}
                 width={window.innerWidth}
                 height={window.innerHeight}
-                onMouseMove={this._onMouseMove.bind(this)}
+                onMouseMove={(e) => this.handleMouseMove(e)}
             >
 
             </canvas>

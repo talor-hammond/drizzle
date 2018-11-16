@@ -1,16 +1,15 @@
 class Raindrop {
-    constructor(x, y, rad, dy, ctx) {
+    constructor(x, y, rad, dy, dx, ctx) {
         this.state = {
             x,
             y,
             rad,
             dy, // Vertical velocity.
-            ctx
+            dx, // Horizontal vel.
+            ctx // Our canvas-context obj passed through.
         }
-        
-        this.animate = this.animate.bind(this)
     }
-
+        
     draw() {
         const { x, y, rad, ctx } = this.state
 
@@ -21,18 +20,9 @@ class Raindrop {
 
     update() {
         this.state.y += this.state.dy // ...y state is updated before Raindrop.draw()
+        this.state.x += this.state.dx
 
         this.draw()
-    }
-
-    animate() {
-        const { ctx } = this.state
-
-        requestAnimationFrame(this.animate)
-
-        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-
-        this.update()
     }
 }
 

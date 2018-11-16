@@ -14,6 +14,10 @@ import {
     getRandomInt
 } from '../../lib/utils'
 
+// Global vars:
+const H = window.innerHeight
+const W = window.innerWidth
+
 class Canvas extends Component {
     constructor() {
         super()
@@ -33,18 +37,24 @@ class Canvas extends Component {
         const canvas = document.getElementById('canvas')
         const ctx = canvas.getContext('2d')
 
+        // Presetting our ctx obj before it is set in state.
+        ctx.strokeStyle = 'rgba(174,194,224,0.5)'
+        ctx.lineWidth = 1
+        ctx.lineCap = 'round'
+
         this.setState({ ctx }, () => {
+            const maxRaindrops = 100
             let raindrops = []
 
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < maxRaindrops; i++) {
                 // Raindrop setup:
                 const x = getRandomXValue()
-                const y = 0
-                const rad = getRandomInt(5, 15)
-                const dy = getRandomInt(20, 25) // Vertical velocity; make this random.
-                const dx = getRandomInt(0.5, 1)
+                const y = 0 // Should begin at the top of our canvas.
+                const l = getRandomInt(5, 15) // Our raindrop length.
+                const dy = getRandomInt(20, 25) // Vertical &
+                const dx = getRandomInt(0.5, 1) // Horizontal velocity.
 
-                const raindrop = new Raindrop(x, y, rad, dy, dx, ctx)
+                const raindrop = new Raindrop(x, y, l, dy, dx, ctx)
 
                 raindrops.push(raindrop)
             }
@@ -65,10 +75,10 @@ class Canvas extends Component {
         function animate() {
             requestAnimationFrame(animate)
             
-            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+            ctx.clearRect(0, 0, W, H)
 
             raindrops.forEach(raindrop => {
-                raindrop.update()
+                raindrop.animate()
             })
         }
 
@@ -82,8 +92,8 @@ class Canvas extends Component {
             <canvas
                 id="canvas"
                 className={canvas}
-                width={window.innerWidth}
-                height={window.innerHeight}
+                width={W}
+                height={H}
                 onMouseMove={(e) => this.handleMouseMove(e)}
             >
 

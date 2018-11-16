@@ -5,7 +5,7 @@ import {
 const styles = {
     canvas: {
         // backgroundColor: generateRgbColor()
-        backgroundColor: '#EAEAEA'
+        backgroundColor: '#061928'
     }
 }
 

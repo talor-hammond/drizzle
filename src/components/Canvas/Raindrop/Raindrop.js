@@ -1,24 +1,25 @@
 class Raindrop {
-    constructor(x, y, rad, dy, dx, ctx) {
+    constructor(x, y, l, dy, dx, ctx) {
         this.state = {
             x,
             y,
-            rad,
-            dy, // Vertical velocity.
-            dx, // Horizontal vel.
+            l,
+            dy,
+            dx,
             ctx // Our canvas-context obj passed through.
         }
     }
         
     draw() {
-        const { x, y, rad, ctx } = this.state
+        const { x, y, l, ctx } = this.state
 
         ctx.beginPath()
-        ctx.arc(x, y, rad, 0, Math.PI * 2)
+        ctx.moveTo(x, y) // Starting x and y for our line.
+        ctx.lineTo(x, y + l) // TODO: Manipulate the x +- to get the feeling of wind or similar.
         ctx.stroke()
     }
 
-    update() {
+    animate() {
         this.state.y += this.state.dy // ...y state is updated before Raindrop.draw()
         this.state.x += this.state.dx
 

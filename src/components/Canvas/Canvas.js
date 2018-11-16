@@ -46,8 +46,8 @@ class Canvas extends Component {
                 const x = getRandomXValue()
                 const y = 0 // Should begin at the top of our canvas.
                 const l = getRandomInt(5, 15) // Our raindrop length.
-                const dy = getRandomInt(20, 25) // Vertical &
-                const dx = getRandomInt(0.5, 1) // Horizontal velocity.
+                const dy = getRandomInt(15, 20) // Vertical velocity.
+                const dx = getRandomInt(-1, 1) // Horizontal velocity.
 
                 const raindrop = new Raindrop(x, y, l, dy, dx, ctx)
 

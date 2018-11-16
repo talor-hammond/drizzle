@@ -1,15 +1,21 @@
+// Utils:
 import {
-    getRandomInt
+    getRandomInt,
+    getRandomXValue
 } from '../../../lib/utils'
 
+// Global var:
+const H = window.innerHeight
+const W = window.innerWidth
+
 class Raindrop {
-    constructor(x, y, l, dy, dx, ctx) {
+    constructor(ctx) {
         this.state = {
-            x,
-            y,
-            l,
-            dy,
-            dx,
+            x: getRandomXValue(),
+            y: 0, // Begin our raindrop at the top of the canvas.
+            l: getRandomInt(5, 15), // Length.
+            dy: getRandomInt(10, 15), // Vertical velocity.
+            dx: getRandomInt(-1 , 1), // Horizontal velocity.
             ctx // Our canvas-context obj passed through.
         }
     }
@@ -25,13 +31,22 @@ class Raindrop {
         ctx.moveTo(x, y) // Starting x and y for our line.
         ctx.lineTo(x, y + l) // TODO: Manipulate the x +- to get the feeling of wind or similar.
         ctx.stroke()
+
+        this.move()
     }
 
-    animate() {
-        this.state.y += this.state.dy // ...y state is updated before Raindrop.draw()
-        this.state.x += this.state.dx
+    move() {
+        const { dy, dx } = this.state
 
-        this.draw()
+        this.state.x += dx
+        this.state.y += dy
+
+        const { x, y } = this.state
+
+        if ( x > W || y > H) { // if the raindrop falls outside our window dimensions:
+            this.state.x = getRandomXValue() // ...update the raindrop's x and y state.
+            this.state.y = -20
+        }
     }
 }
 

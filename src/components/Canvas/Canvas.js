@@ -7,13 +7,6 @@ import styles from './CanvasStyles'
 // Components / Objects:
 import Raindrop from './Raindrop/Raindrop'
 
-// Utils:
-import {
-    getRandomXValue,
-    // getRandomYValue
-    getRandomInt
-} from '../../lib/utils'
-
 // Global vars:
 const H = window.innerHeight
 const W = window.innerWidth
@@ -43,18 +36,13 @@ class Canvas extends Component {
 
             for (let i = 0; i < maxRaindrops; i++) {
                 // Raindrop setup:
-                const x = getRandomXValue()
-                const y = 0 // Should begin at the top of our canvas.
-                const l = getRandomInt(5, 15) // Our raindrop length.
-                const dy = getRandomInt(15, 20) // Vertical velocity.
-                const dx = getRandomInt(-1, 1) // Horizontal velocity.
-
-                const raindrop = new Raindrop(x, y, l, dy, dx, ctx)
+                const raindrop = new Raindrop(ctx)
 
                 raindrops.push(raindrop)
             }
 
-            this.setState({ raindrops }, () => { // creating an array of 15 unique raindrop objects.
+            this.setState({ raindrops }, () => {
+                console.log(raindrops)
                 this.animateRaindrops()
             })
         })
@@ -73,7 +61,7 @@ class Canvas extends Component {
             ctx.clearRect(0, 0, W, H)
 
             raindrops.forEach(raindrop => {
-                raindrop.animate()
+                raindrop.move()
             })
         }
 

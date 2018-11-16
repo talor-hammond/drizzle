@@ -31,7 +31,7 @@ class Canvas extends Component {
         const ctx = canvas.getContext('2d')
 
         this.setState({ ctx }, () => {
-            const maxRaindrops = 100
+            const maxRaindrops = 1000
             let raindrops = []
 
             for (let i = 0; i < maxRaindrops; i++) {
@@ -42,7 +42,6 @@ class Canvas extends Component {
             }
 
             this.setState({ raindrops }, () => {
-                console.log(raindrops)
                 this.animateRaindrops()
             })
         })
@@ -61,7 +60,7 @@ class Canvas extends Component {
             ctx.clearRect(0, 0, W, H)
 
             raindrops.forEach(raindrop => {
-                raindrop.move()
+                raindrop.draw()
             })
         }
 

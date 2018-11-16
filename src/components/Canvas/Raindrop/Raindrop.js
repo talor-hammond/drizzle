@@ -1,7 +1,8 @@
 // Utils:
 import {
     getRandomInt,
-    getRandomXValue
+    getRandomXValue,
+    getRandomYValue
 } from '../../../lib/utils'
 
 // Global var:
@@ -12,7 +13,7 @@ class Raindrop {
     constructor(ctx) {
         this.state = {
             x: getRandomXValue(),
-            y: 0, // Begin our raindrop at the top of the canvas.
+            y: getRandomYValue(), // Begin our raindrop at the top of the canvas.
             l: getRandomInt(5, 15), // Length.
             dy: getRandomInt(10, 15), // Vertical velocity.
             dx: getRandomInt(-1 , 1), // Horizontal velocity.

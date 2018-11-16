@@ -1,11 +1,7 @@
-import {
-    // generateRgbColor
-} from '../../lib/utils'
-
 const styles = {
     canvas: {
-        // backgroundColor: generateRgbColor()
-        backgroundColor: '#061928'
+        backgroundColor: '#061928',
+        margin: 0
     }
 }
 

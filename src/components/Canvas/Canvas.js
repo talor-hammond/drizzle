@@ -42,7 +42,7 @@ class Canvas extends Component {
             }
 
             this.setState({ raindrops }, () => {
-                this.animateRaindrops()
+                // this.generateRaindrops()
             })
         })
     }
@@ -51,16 +51,16 @@ class Canvas extends Component {
         this.setState({ mouseX: e.clientX, mouseY: e.clientY })
     }
 
-    animateRaindrops() {
+    generateRaindrops() {
         const { ctx, raindrops } = this.state
 
         function animate() {
             requestAnimationFrame(animate)
-            
+
             ctx.clearRect(0, 0, W, H)
 
             raindrops.forEach(raindrop => {
-                raindrop.draw()
+                raindrop.draw() // ...subsequently iterates our raindrop state
             })
         }
 
@@ -68,18 +68,23 @@ class Canvas extends Component {
     }
 
     render() {
-        const { canvas } = this.props.classes
+        const { mainContainer, canvas, input } = this.props.classes
 
         return (
-            <canvas
-                id="canvas"
-                className={canvas}
-                width={W}
-                height={H}
-                onMouseMove={(e) => this.handleMouseMove(e)}
-            >
+            <div className={mainContainer}>
+                <canvas
+                    id="canvas"
+                    className={canvas}
+                    width={W}
+                    height={H}
+                    onMouseMove={(e) => this.handleMouseMove(e)}
+                >
+                </canvas>
 
-            </canvas>
+                <div className={input}>
+                    <input type='text' placeholder='how many raindrops would u like' />
+                </div>
+            </div>
         )
     }
 }

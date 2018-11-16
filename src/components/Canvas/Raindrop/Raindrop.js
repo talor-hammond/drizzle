@@ -13,7 +13,7 @@ class Raindrop {
     constructor(ctx) {
         this.state = {
             x: getRandomXValue(),
-            y: getRandomYValue(), // Begin our raindrop at the top of the canvas.
+            y: getRandomYValue(),
             l: getRandomInt(5, 15), // Length.
             dy: getRandomInt(10, 15), // Vertical velocity.
             dx: getRandomInt(-1 , 1), // Horizontal velocity.

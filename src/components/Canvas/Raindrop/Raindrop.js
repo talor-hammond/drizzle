@@ -10,19 +10,19 @@ const H = window.innerHeight
 const W = window.innerWidth
 
 class Raindrop {
-    constructor(ctx) {
+    constructor(ctx, dx) {
         this.state = {
             x: getRandomXValue(),
             y: getRandomYValue(),
             l: getRandomInt(5, 15), // Length.
             dy: getRandomInt(10, 15), // Vertical velocity.
-            dx: getRandomInt(-1 , 1), // Horizontal velocity.
+            dx, // Horizontal velocity; based on cursor-position.
             ctx // Our canvas-context obj passed through.
         }
     }
         
     draw() { // ...the shape of our Raindrop object.
-        const { x, y, l, ctx } = this.state
+        const { x, y, l, dx, ctx } = this.state
 
         ctx.strokeStyle = `rgba(174, 194, 224, ${getRandomInt(0.25, 0.85)})`
         ctx.lineWidth = 1
@@ -30,7 +30,7 @@ class Raindrop {
 
         ctx.beginPath()
         ctx.moveTo(x, y) // Starting x and y for our line.
-        ctx.lineTo(x, y + l) // TODO: Manipulate the x +- to get the feeling of wind or similar.
+        ctx.lineTo(x + dx, y + l) // TODO: Manipulate the x +- to get the feeling of wind or similar.
         ctx.stroke()
 
         this.move()

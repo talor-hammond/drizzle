@@ -17,7 +17,7 @@ class Canvas extends Component {
 
         this.state = {
             ctx: null,
-            horizontalVelocity: null,
+            dx: null,
             raindrops: []
         }
 
@@ -36,7 +36,7 @@ class Canvas extends Component {
 
             for (let i = 0; i < maxRaindrops; i++) {
                 // Raindrop setup:
-                const raindrop = new Raindrop(ctx, 0)
+                const raindrop = new Raindrop(ctx)
 
                 raindrops.push(raindrop)
             }
@@ -48,19 +48,46 @@ class Canvas extends Component {
     }
 
     calculateHorizontalVelocity(cursorPositionFromCenter) {
-        switch (cursorPositionFromCenter) {
-            // case 
+        // Splitting the screen-width horizontally, and then into 5 'section' values:
+        const section = W / 2 / 5
+
+        switch (true) {
+            // Cursor left-of-center:
+            case ((-section * 5) > cursorPositionFromCenter):
+                return -5
+            case ((-section * 4) > cursorPositionFromCenter):
+                return -4
+            case ((-section * 3) > cursorPositionFromCenter):
+                return -3
+            case ((-section * 2) > cursorPositionFromCenter):
+                return -2
+            case (-section > cursorPositionFromCenter):
+                return -1
+
+            // Cursor right-of-center:
+            case (section > cursorPositionFromCenter):
+                return 1
+            case ((section * 2) > cursorPositionFromCenter):
+                return 2
+            case ((section * 3) > cursorPositionFromCenter):
+                return 3
+            case ((section * 4) > cursorPositionFromCenter):
+                return 4
+            case ((section * 5) > cursorPositionFromCenter):
+                return 5
+            default:
+                return 0
         }
     }
 
     handleMouseMove(e) {
-        console.log(e.clientX - W / 2)
-        
-        this.setState({ 
-            horizontalVelocity: e.clientX - W / 2 // Cursor's X-position less half the screen width.
-        }, () => {
+        const cursorPositionFromCenter = e.clientX - W / 2
+
+        const dx = this.calculateHorizontalVelocity(cursorPositionFromCenter)
+
+        this.setState({ dx }, () => {
             this.state.raindrops.forEach(raindrop => {
-                raindrop.state.dx = 3
+                raindrop.state.dx = this.state.dx
             })
         })
     }

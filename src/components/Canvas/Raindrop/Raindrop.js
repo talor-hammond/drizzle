@@ -10,13 +10,13 @@ const H = window.innerHeight
 const W = window.innerWidth
 
 class Raindrop {
-    constructor(ctx, dx) {
+    constructor(ctx) {
         this.state = {
             x: getRandomXValue(),
             y: getRandomYValue(),
             l: getRandomInt(5, 15), // Length.
             dy: getRandomInt(10, 15), // Vertical velocity.
-            dx, // Horizontal velocity; based on cursor-position.
+            dx: getRandomInt(-1, 1), // Horizontal velocity.
             ctx // Our canvas-context obj passed through.
         }
     }
@@ -44,7 +44,7 @@ class Raindrop {
 
         const { x, y } = this.state
 
-        if ( x > W) { // if the raindrop falls outside our window dimensions:
+        if (x > W) {
             this.state.x = 0
         } else if (y > H) {
             this.state.y = -20

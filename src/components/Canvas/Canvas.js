@@ -25,7 +25,6 @@ class Canvas extends Component {
     }
 
     componentDidMount() {
-        console.log('firing')
         // Initialising canvas & context:
         const canvas = document.getElementById('canvas')
         const ctx = canvas.getContext('2d')
@@ -48,7 +47,7 @@ class Canvas extends Component {
     }
 
     calculateHorizontalVelocity(cursorPositionFromCenter) {
-        // Splitting the screen-width horizontally, and then into 5 'section' values:
+        // Splitting the screen-width horizontally, and then into 5 to define a relative 'section' value:
         const section = W / 2 / 5
 
         switch (true) {
@@ -75,6 +74,7 @@ class Canvas extends Component {
                 return 4
             case ((section * 5) > cursorPositionFromCenter):
                 return 5
+
             default:
                 return 0
         }
@@ -87,6 +87,7 @@ class Canvas extends Component {
 
         this.setState({ dx }, () => {
             this.state.raindrops.forEach(raindrop => {
+                // Update the horizontal velocity of each raindrop:
                 raindrop.state.dx = this.state.dx
             })
         })
@@ -109,23 +110,17 @@ class Canvas extends Component {
     }
 
     render() {
-        const { mainContainer, canvas, input } = this.props.classes
+        const { canvas } = this.props.classes
 
         return (
-            <div className={mainContainer}>
-                <canvas
-                    id="canvas"
-                    className={canvas}
-                    width={W}
-                    height={H}
-                    onMouseMove={(e) => this.handleMouseMove(e)}
-                >
-                </canvas>
-
-                {/* <div className={input}>
-                    <input type='text' placeholder='how many raindrops would u like' />
-                </div> */}
-            </div>
+            <canvas
+                id="canvas"
+                className={canvas}
+                width={W}
+                height={H}
+                onMouseMove={(e) => this.handleMouseMove(e)}
+            >
+            </canvas>
         )
     }
 }

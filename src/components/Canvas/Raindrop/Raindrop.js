@@ -30,7 +30,7 @@ class Raindrop {
 
         ctx.beginPath()
         ctx.moveTo(x, y) // Starting x and y for our line.
-        ctx.lineTo(x + dx, y + l) // TODO: Manipulate the x +- to get the feeling of wind or similar.
+        ctx.lineTo(x + dx, y + l) // dx is based on relative mouse-position; gives the effect of directional raindrops.
         ctx.stroke()
 
         this.move()
@@ -44,9 +44,15 @@ class Raindrop {
 
         const { x, y } = this.state
 
-        if (x > W) {
+        // Conditionals for x-position:
+        if (x > W) { // ...raindrop falls off the right-edge of the canvas...
             this.state.x = 0
-        } else if (y > H) {
+        } else if (x < 0) { // ...raindrop falls off the left-edge of the canvas...
+            this.state.x = W
+        }
+        
+        // Conditionals for y-position:
+        if (y > H) {
             this.state.y = -20
         }
     }

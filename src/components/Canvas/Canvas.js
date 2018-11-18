@@ -5,7 +5,7 @@ import injectSheet from 'react-jss'
 import styles from './CanvasStyles'
 
 // Components / Objects:
-import Raindrop from './Raindrop/Raindrop'
+import Raindrop from '../../models/Raindrop/Raindrop'
 
 // Global vars:
 const H = window.innerHeight

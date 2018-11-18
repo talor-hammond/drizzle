@@ -3,7 +3,7 @@ import {
     getRandomInt,
     getRandomXValue,
     getRandomYValue
-} from '../../../lib/utils'
+} from '../../lib/utils'
 
 // Global var:
 const H = window.innerHeight

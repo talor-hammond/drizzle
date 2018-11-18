@@ -86,7 +86,7 @@ class Canvas extends Component {
 
         this.state.raindrops.forEach(raindrop => {
             // Update the horizontal velocity of each raindrop:
-            raindrop.state.dx = dx * 1.5 // ...scaled dx by 1.5 for effect.
+            raindrop.state.dx = dx
         })
     }
 

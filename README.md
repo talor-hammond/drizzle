@@ -1,2 +1,2 @@
 # drizzle
-Rain-simulator built w React, HTML5 <canvas>, and OOP-principles
+Rain-simulator built w React, HTML5 `<canvas>`, and OOP-principles

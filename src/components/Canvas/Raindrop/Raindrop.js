@@ -44,8 +44,9 @@ class Raindrop {
 
         const { x, y } = this.state
 
-        if ( x > W || y > H) { // if the raindrop falls outside our window dimensions:
-            this.state.x = getRandomXValue() // ...update the raindrop's x and y state.
+        if ( x > W) { // if the raindrop falls outside our window dimensions:
+            this.state.x = 0
+        } else if (y > H) {
             this.state.y = -20
         }
     }

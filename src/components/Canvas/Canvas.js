@@ -47,7 +47,15 @@ class Canvas extends Component {
         })
     }
 
+    calculateHorizontalVelocity(cursorPositionFromCenter) {
+        switch (cursorPositionFromCenter) {
+            // case 
+        }
+    }
+
     handleMouseMove(e) {
+        console.log(e.clientX - W / 2)
+        
         this.setState({ 
             horizontalVelocity: e.clientX - W / 2 // Cursor's X-position less half the screen width.
         }, () => {

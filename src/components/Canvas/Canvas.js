@@ -17,7 +17,6 @@ class Canvas extends Component {
 
         this.state = {
             ctx: null,
-            dx: null,
             raindrops: []
         }
 
@@ -52,11 +51,11 @@ class Canvas extends Component {
 
         switch (true) {
             // Cursor left-of-center:
-            case ((-section * 5) > cursorPositionFromCenter):
+            case ((-section * 5) > cursorPositionFromCenter): // -5th section.
                 return -5
-            case ((-section * 4) > cursorPositionFromCenter):
+            case ((-section * 4) > cursorPositionFromCenter): // -4th section.
                 return -4
-            case ((-section * 3) > cursorPositionFromCenter):
+            case ((-section * 3) > cursorPositionFromCenter): // ...and so on.
                 return -3
             case ((-section * 2) > cursorPositionFromCenter):
                 return -2
@@ -85,11 +84,9 @@ class Canvas extends Component {
 
         const dx = this.calculateHorizontalVelocity(cursorPositionFromCenter)
 
-        this.setState({ dx }, () => {
-            this.state.raindrops.forEach(raindrop => {
-                // Update the horizontal velocity of each raindrop:
-                raindrop.state.dx = this.state.dx
-            })
+        this.state.raindrops.forEach(raindrop => {
+            // Update the horizontal velocity of each raindrop:
+            raindrop.state.dx = dx * 1.5 // ...scaled dx by 1.5 for effect.
         })
     }
 

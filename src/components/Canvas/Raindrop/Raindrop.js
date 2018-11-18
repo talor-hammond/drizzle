@@ -52,7 +52,7 @@ class Raindrop {
         }
         
         // Conditionals for y-position:
-        if (y > H) {
+        if (y > H) { // ...raindrop goes below canvas...
             this.state.y = -20
         }
     }

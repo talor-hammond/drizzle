@@ -2,7 +2,6 @@
   "name": "drizzle",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://talor-hammond.github.io/drizzle",
   "dependencies": {
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -14,7 +13,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "deploy": "gh-pages -d build",
+    "deploy": "npm run build && aws s3 cp --recursive ./build s3://drizzle.th",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

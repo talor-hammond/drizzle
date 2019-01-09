@@ -9,7 +9,7 @@ Here's an [interactive demo-page](https://raindrop.netlify.com/) -- try *moving 
 
 ## How it works:
 
-* The rain-simulator works by creating instances of a `Raindrop` class once the DOM / our `canvas` has loaded; pushing these `Raindrop` objects into an array inside `<Canvas />` -- our parent component.
+### The rain-simulator works by creating **instances of a `Raindrop` class** once the DOM / our `canvas` has loaded; pushing these `Raindrop` objects into an array inside `<Canvas />` -- our parent component.
 
 ```jsx
 componentDidMount() {
@@ -33,7 +33,7 @@ componentDidMount() {
 }
 ```
 
-* Our `raindrop` objects are instantiated with varying x & y positions, length, horizontal and vertical velocity, and our specific canvas-context:
+### Our `raindrop` objects are instantiated with *varying* **x & y** positions, **length**, **horizontal** and **vertical velocity**, and our specific **canvas-context**:
 ```js
 class Raindrop {
     constructor(ctx) {
@@ -50,10 +50,12 @@ class Raindrop {
 }
 ```
 
-* Each `raindrop` object has a `draw()` and a `move()` method:
+### Each `raindrop` object has a `draw()` and a `move()` method:
+
+> `draw()` is used to draw the shape of our `raindrop` on our canvas.
 
 ```js
-draw() { // ...the shape of our Raindrop object.
+draw() {
     const { x, y, l, dx, ctx } = this.state
 
     ctx.strokeStyle = `rgba(174, 194, 224, ${getRandomInt(0.25, 0.85)})` // Varying alpha values gives the effect of raindrops with different depths.
@@ -68,6 +70,8 @@ draw() { // ...the shape of our Raindrop object.
     this.move()
 }
 ```
+
+> `move()` is used to update the state of the `raindrop`; *its **x & y***.
 
 ```js
 move() {

@@ -82,12 +82,10 @@ class Canvas extends Component {
     handleMouseMove(e) {
         const cursorPositionFromCenter = e.clientX - W / 2
 
+        // dx; based on the relative horizontal-velocity / cursor-position:
         const dx = this.calculateHorizontalVelocity(cursorPositionFromCenter)
 
-        this.state.raindrops.forEach(raindrop => {
-            // Update the horizontal velocity of each raindrop:
-            raindrop.state.dx = dx
-        })
+        this.state.raindrops.forEach(raindrop => raindrop.state.dx = dx)
     }
 
     generateRaindrops() {

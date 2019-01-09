@@ -95,3 +95,32 @@ move() {
     }
 }
 ```
+
+### The method for generating raindrops:
+```js
+generateRaindrops() {
+    const { ctx, raindrops } = this.state
+
+    function animate() { // this animate() function will persist.
+        requestAnimationFrame(animate)
+
+        ctx.clearRect(0, 0, W, H) // ...clears the canvas before .draw() on every raindrop.
+
+        raindrops.forEach(raindrop => raindrop.draw()) // ...subsequently iterates our raindrop state
+    }
+
+    animate()
+}
+```
+
+### ...and adjusting the horizontal-velocity, or `dx` of each raindrop dynamically:
+```js
+handleMouseMove(e) {
+    const cursorPositionFromCenter = e.clientX - W / 2
+
+    // dx; based on the relative horizontal-velocity / cursor-position:
+    const dx = this.calculateHorizontalVelocity(cursorPositionFromCenter)
+
+    this.state.raindrops.forEach(raindrop => raindrop.state.dx = dx)
+}
+```

@@ -20,6 +20,8 @@ class Canvas extends Component {
             raindrops: []
         }
 
+        this.maxRaindrops = 1000
+
         this.handleMouseMove = this.handleMouseMove.bind(this)
     }
 
@@ -29,11 +31,9 @@ class Canvas extends Component {
         const ctx = canvas.getContext('2d')
 
         this.setState({ ctx }, () => {
-            const maxRaindrops = 1000
             let raindrops = []
 
-            for (let i = 0; i < maxRaindrops; i++) {
-                // Raindrop setup:
+            for (let i = 0; i < this.maxRaindrops; i++) {
                 const raindrop = new Raindrop(ctx)
 
                 raindrops.push(raindrop)

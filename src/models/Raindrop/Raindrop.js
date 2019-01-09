@@ -24,7 +24,7 @@ class Raindrop {
     draw() { // ...the shape of our Raindrop object.
         const { x, y, l, dx, ctx } = this.state
 
-        ctx.strokeStyle = `rgba(174, 194, 224, ${getRandomInt(0.25, 0.85)})`
+        ctx.strokeStyle = `rgba(174, 194, 224, ${getRandomInt(0.25, 0.85)})` // Varying alpha values gives the effect of raindrops with different depths.
         ctx.lineWidth = 1
         ctx.lineCap = 'round'
 

@@ -9,7 +9,7 @@ Here's an [interactive demo-page](https://raindrop.netlify.com/) -- try *moving 
 
 ## How it works:
 
-1. The rain-simulator works by creating instances of a `Raindrop` class once the DOM / our `canvas` has loaded; pushing these `Raindrop` objects into an array inside `<Canvas />` -- our parent component.
+* The rain-simulator works by creating instances of a `Raindrop` class once the DOM / our `canvas` has loaded; pushing these `Raindrop` objects into an array inside `<Canvas />` -- our parent component.
 
 ```jsx
 componentDidMount() {
@@ -47,5 +47,47 @@ class Raindrop {
         }
     }
     ...
+}
+```
+
+* Each `raindrop` object has a `draw()` and a `move()` method:
+
+```js
+draw() { // ...the shape of our Raindrop object.
+    const { x, y, l, dx, ctx } = this.state
+
+    ctx.strokeStyle = `rgba(174, 194, 224, ${getRandomInt(0.25, 0.85)})` // Varying alpha values gives the effect of raindrops with different depths.
+    ctx.lineWidth = 1
+    ctx.lineCap = 'round'
+
+    ctx.beginPath()
+    ctx.moveTo(x, y) // Starting x and y for our line.
+    ctx.lineTo(x + dx, y + l) // dx is based on relative mouse-position; gives the effect of directional raindrops.
+    ctx.stroke()
+
+    this.move()
+}
+```
+
+```js
+move() {
+    const { dy, dx } = this.state
+
+    this.state.x += dx
+    this.state.y += dy
+
+    const { x, y } = this.state
+
+    // Conditionals for x-position:
+    if (x > W) { // ...raindrop falls off the right-edge of the canvas...
+        this.state.x = 0
+    } else if (x < 0) { // ...raindrop falls off the left-edge of the canvas...
+        this.state.x = W
+    }
+    
+    // Conditionals for y-position:
+    if (y > H) { // ...raindrop goes below canvas...
+        this.state.y = -20
+    }
 }
 ```

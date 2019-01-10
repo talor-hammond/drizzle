@@ -124,3 +124,33 @@ handleMouseMove(e) {
     this.state.raindrops.forEach(raindrop => raindrop.state.dx = dx)
 }
 ```
+
+### `this.calculateHorizontalVelocity(cursorPositionFromCenter)` works by calculating a new horizontal-velocity, `dx` based on the cursor-position relative to the page.
+* It works by splitting the screen into 10 equal sections based on browser's width, `W`.
+* ...then, is takes the cursor's position from the true middle, and appropriates a relative `dx` based on what section it is inside.
+* **TODO**: Re-usable func.
+  * Could work by pushing section objects into an array w x-start / x-end properties
+  * Would need to split the length of the array and then push numbers either side for each obj
+
+```js
+calculateHorizontalVelocity(cursorPositionFromCenter) {
+    // Splitting the screen-width horizontally, and then into 5 to define a relative 'section' value:
+    const section = W / 2 / 5
+
+    switch (true) {
+        case ((-section * 5) > cursorPositionFromCenter): // -5th section.
+            return -5
+        case ((-section * 4) > cursorPositionFromCenter): // -4th section.
+            return -4
+        case ((-section * 3) > cursorPositionFromCenter): // ...and so on.
+        ...
+        case ((section * 4) > cursorPositionFromCenter):
+            return 4
+        case ((section * 5) > cursorPositionFromCenter):
+            return 5
+
+        default:
+            return 0
+    }
+}
+```
